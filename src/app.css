@@ -1,0 +1,56 @@
+/* App.css */
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .question-form {
+  position: absolute;
+  width: 300px;
+  text-align: center;
+} */
+
+.question-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.question-enter-active {
+  opacity: 1;
+  transform: translateX(0%);
+  transition: opacity 1000ms, transform 1000ms;
+}
+
+.question-exit {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.question-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
