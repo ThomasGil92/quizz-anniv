@@ -44,7 +44,7 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
                 //console.log(date && format(date,"dd/MM/yyyy"))
                 return date && !isNaN(val.getTime());
               },
-              { message: "Invalid date format" },
+              { message: "Mauvaise date" },
             )
             .refine(
               () => {
@@ -53,7 +53,7 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
                 );
               },
               {
-                message: "Incorrect answer",
+                message: "Pas du tout!",
               },
             )
         : z
@@ -62,9 +62,9 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
               (val) =>
                 enigme.answers
                   .map((answer) => answer.toLowerCase())
-                  .includes(val.toLowerCase()),
+                  .includes(val.toLowerCase().trim()),
               {
-                message: "Incorrect answer",
+                message: "FAUX!",
               },
             ),
   });
@@ -86,7 +86,7 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
             name='response'
             render={({ field }) => (
               <FormItem>
-                <Label>{enigme.question}</Label>
+                <Label >{enigme.question}</Label>
                 <FormControl>
                   {enigme.type === "date" ? (
                     <Popover>
@@ -94,7 +94,7 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[280px] justify-start text-left font-normal",
+                            "w-[280px] justify-start text-left font-normal mt-3",
                             !date && "text-muted-foreground",
                           )}
                         >
@@ -117,23 +117,20 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
                           fromYear={1960}
                           toYear={2030}
                           initialFocus
-                          /* {...field}
-                            id={field.name} */
-                          /* {...form.register("response")} */
+                         
                         />
-                        {/* </PopoverClose> */}
                       </PopoverContent>
                     </Popover>
                   ) : (
                     <Input className='my-6' {...field} id={field.name} />
                   )}
                 </FormControl>
-                <FormMessage className='mb-6' />
+                <FormMessage className='mb-3 text-center text-xl font-extrabold' />
               </FormItem>
             )}
           />
-          <div className='text-right'>
-            <Button type='submit' className='align-middle'>
+          <div className='text-center'>
+            <Button type='submit' className='align-middle text-white mt-3'>
               Soumettre
             </Button>
           </div>
