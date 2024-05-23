@@ -49,7 +49,7 @@ const Carousel = React.forwardRef<
   (
     {
       orientation = "horizontal",
-      opts,
+      opts={watchDrag:false},
       setApi,
       plugins,
       className,
@@ -125,7 +125,7 @@ const Carousel = React.forwardRef<
         value={{
           carouselRef,
           api: api,
-          opts,
+          opts ,
           orientation:
             orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
           scrollPrev,
@@ -258,7 +258,5 @@ export {
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
-  
   CarouselNext,
-
 };

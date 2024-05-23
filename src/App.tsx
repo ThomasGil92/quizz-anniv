@@ -17,12 +17,19 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "./components/ui/carousel";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "./components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { cn } from "./lib/utils";
+import { Calendar } from "./components/ui/calendar";
+import Slide from "./presentation/Slide";
 
-const enigmes = [
+const enigmes:{question:string,answers:string[],type?:string}[] = [
   {
     question:
       "Quel est le nom du café où nous nous sommes rencontrés pour la première fois ?",
@@ -34,7 +41,7 @@ const enigmes = [
     answers: ["12/11/2018"],
   },
   {
-    question: "Dans quelle rue à eu lieu notre premier baiser ?",
+    question: "Dans quelle rue a eu lieu notre premier baiser ?",
     answers: ["Rue des frères lumière", "Avenue Albert 1er"],
   },
   {
@@ -50,120 +57,59 @@ const enigmes = [
   {
     question:
       "Quelle est la première ligne du premier message que tu m'as envoyé ?",
-    type: "date",
     answers: ["Re (re) hello!"],
   },
 ];
 
 const App = () => {
   const [step, setStep] = useState(0);
-  const [error, setError] = useState("");
   const [showModal, setShowModal] = useState(false);
+  
   const [api, setApi] = useState<CarouselApi>();
-  const formSchema = z.object({
-    response: z.string().min(2, {
-      message: "Vous devez répondre!",
-    }),
-  });
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      response: "",
-    },
-  });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(
-      typeof enigmes[step].answers,
-      enigmes[step].answers,
-      values.response.toLowerCase(),
-    );
-    // console.log(
-    //   enigmes[step]
-    //     .answers!.map((answer) => {
-    //       return answer.toLowerCase();
-    //     })
-    //     .includes(values.response.toLowerCase()),
-    // );
-    if (typeof enigmes[step].answers === "object")
-      if (
-        enigmes[step].answers
-          .map((answer) => {
-            return answer.toLowerCase();
-          })
-          .includes(values.response.toLowerCase())
-      ) {
-        setError("");
-        setShowModal(true);
-        form.reset();
-      } else {
-        setError("Mauvaise réponse, essaie encore.");
-      }
-  }
-  /* const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (userAnswer.toLowerCase() === enigmes[step].answer.toLowerCase()) {
-      setError("");
+  
+
+  const handleSubmit = (values) => {
+    console.log(values)
+    // const currentEnigme = enigmes[step];
+    
+    // const userResponse =
+    //   currentEnigme.type === "date" && date
+    //     ? format(date, "dd/MM/yyyy")
+    //     : values.response;
+
+    // if (
+    //   currentEnigme.answers
+    //     .map((answer) => answer.toLowerCase())
+    //     .includes(userResponse.toLowerCase())
+    // ) {
       setShowModal(true);
-    } else {
-      setError("Mauvaise réponse, essaie encore.");
-    }
-  }; */
+    // } else {
+    //   form.setError("response", {
+    //     type: "custom",
+    //     message: "Mauvaise réponse",
+    //   });
+    // }
+  };
 
   const handleCloseModal = () => {
     setShowModal(false);
     if (step + 1 < enigmes.length) {
       setStep(step + 1);
-      api?.scrollNext();
+      // form.reset();
+      // setDate(undefined); // Reset the date if it was a date question
+      api?.scrollTo(step+1);
     }
   };
 
   return (
     <>
       <div className='relative w-screen h-screen flex justify-center items-center'>
+        {step}
         <Carousel setApi={setApi} className='w-full max-w-xs'>
-          <CarouselContent>
-            {enigmes.map((enigme) => {
-              return (
-                <CarouselItem key={enigme.question}>
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className='mx-auto drop-shadow-xl bg-white p-3 rounded-lg rounded-t-none'
-                    >
-                      <FormField
-                        control={form.control}
-                        name='response'
-                        render={({ field }) => (
-                          <FormItem>
-                            <Label>{enigme.question}</Label>
-                            <FormControl>
-                              <Input
-                                className='my-6'
-                                {...field}
-                                /* {...form.register(field.name, {
-                                  onChange: (e) => console.log(e.target,field),
-                                })} */
-                                id={field.name}
-                              />
-                            </FormControl>
-                            <FormMessage className='mb-6' />
-                          </FormItem>
-                        )}
-                      />
-                      <div className='text-right'>
-                        <Button type='submit' className='align-middle'>
-                          Soumettre
-                        </Button>
-                      </div>
-
-                      {error && <p style={{ color: "red" }}>{error}</p>}
-                    </form>
-                  </Form>
-                </CarouselItem>
-              );
-            })}
+          <CarouselContent draggable="false">
+            {enigmes.map((enigme, index) => (
+              <Slide key={index} enigme={enigme} onSubmit={handleSubmit}/>
+            ))}
           </CarouselContent>
         </Carousel>
 
