@@ -12,7 +12,6 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  PopoverClose,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
@@ -28,7 +27,7 @@ import { useState } from "react";
 
 interface SlideProps {
   enigme: { question: string; answers: string[]; type?: string };
-  onSubmit: () => void;
+  onSubmit: (values: { response: string }) => void;
 }
 
 const Slide = ({ enigme, onSubmit }: SlideProps) => {
@@ -49,7 +48,6 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
             )
             .refine(
               () => {
-                
                 return enigme.answers.includes(
                   format(new Date(date!), "dd/MM/yyyy"),
                 );
@@ -77,7 +75,7 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
     },
   });
   return (
-    <CarouselItem draggable="false" key={enigme.question}>
+    <CarouselItem draggable='false' key={enigme.question}>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -110,19 +108,19 @@ const Slide = ({ enigme, onSubmit }: SlideProps) => {
                       </PopoverTrigger>
                       <PopoverContent className='w-auto p-0'>
                         {/* <PopoverClose> */}
-                          <Calendar
-                            locale={fr}
-                            mode='single'
-                            captionLayout='dropdown-buttons'
-                            selected={date}
-                            onSelect={setDate}
-                            fromYear={1960}
-                            toYear={2030}
-                            initialFocus
-                            /* {...field}
+                        <Calendar
+                          locale={fr}
+                          mode='single'
+                          captionLayout='dropdown-buttons'
+                          selected={date}
+                          onSelect={setDate}
+                          fromYear={1960}
+                          toYear={2030}
+                          initialFocus
+                          /* {...field}
                             id={field.name} */
-                            /* {...form.register("response")} */
-                          />
+                          /* {...form.register("response")} */
+                        />
                         {/* </PopoverClose> */}
                       </PopoverContent>
                     </Popover>

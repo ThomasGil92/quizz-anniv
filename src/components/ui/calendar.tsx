@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import { buttonVariants } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -65,7 +66,7 @@ const Calendar = React.forwardRef(
             value,
             onChange,
             children,
-            ...props
+            
           }: DropdownProps) => {
             const options = React.Children.toArray(
               children,
@@ -82,7 +83,7 @@ const Calendar = React.forwardRef(
             return (
               <Select
                 value={value?.toString()}
-                onValueChange={(value) => {
+                onValueChange={(value: string) => {
                   handleChange(value);
                 }}
               >
@@ -104,8 +105,8 @@ const Calendar = React.forwardRef(
               </Select>
             );
           },
-          IconLeft: ({ ...props }) => <ChevronLeft className='h-4 w-4' />,
-          IconRight: ({ ...props }) => <ChevronRight className='h-4 w-4' />,
+          IconLeft: () => <ChevronLeft className='h-4 w-4' />,
+          IconRight: () => <ChevronRight className='h-4 w-4' />,
         }}
         {...props}
       />

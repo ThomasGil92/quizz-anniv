@@ -1,32 +1,11 @@
 import { useState } from "react";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "./components/ui/button";
-import { Label } from "./components/ui/label";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
   type CarouselApi,
 } from "./components/ui/carousel";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "./components/ui/popover";
-import { CalendarIcon } from "lucide-react";
-import { cn } from "./lib/utils";
-import { Calendar } from "./components/ui/calendar";
+
 import Slide from "./presentation/Slide";
 
 const enigmes:{question:string,answers:string[],type?:string}[] = [
@@ -68,7 +47,7 @@ const App = () => {
   const [api, setApi] = useState<CarouselApi>();
   
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values:{response:string}) => {
     console.log(values)
     // const currentEnigme = enigmes[step];
     
