@@ -55,12 +55,12 @@ const enigmes: {
     question:
       "Où étions-nous quand nous avons pris notre premier selfie ensemble ?",
     answers: ["Paris"],
-    indice: "Tu peux te rendre dans la chambre du petit.",
+    indice: "Tu peux rester ici.",
   },
   {
     question:
       "Dans l'endroit dans lequel rien ne tient, tu trouveras un code. Une fois récupéré, indique le code:",
-    type: "date",
+
     answers: ["060818"],
     indice:
       "Tu peux te rendre dans les toilettes ... je plaisante. Vas dans la salle de bain.",
@@ -86,9 +86,7 @@ const App = () => {
   const [api, setApi] = useState<CarouselApi>();
 
   const handleSubmit = () => {
-   
     setShowModal(true);
-    
   };
 
   const handleCloseModal = () => {
