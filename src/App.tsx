@@ -104,7 +104,7 @@ const App = () => {
   return (
     <>
       <div className='relative w-screen h-screen flex justify-center items-center'>
-        {step}
+        
         <Carousel setApi={setApi} className='w-full max-w-xs'>
           <CarouselContent draggable="false">
             {enigmes.map((enigme, index) => (
