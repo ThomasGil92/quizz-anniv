@@ -75,7 +75,6 @@ const enigmes: {
     question:
       "Quelle est la première ligne du premier message que tu m'as envoyé ?",
     answers: ["Re (re) hello!"],
-    indice: "Tu peux regarder par la fenêtre et découvrir une surprise",
   },
 ];
 
@@ -91,7 +90,7 @@ const App = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    if (step + 1 < enigmes.length) {
+    if (step + 1 <= enigmes.length) {
       setStep(step + 1);
       api?.scrollTo(step + 1);
     }
@@ -129,7 +128,7 @@ const App = () => {
             </CardFooter>
           </Card>
         )}
-        {begin && (
+        {begin && step < enigmes.length && (
           <Carousel setApi={setApi} className='w-full max-w-xs'>
             <CarouselContent draggable='false'>
               {enigmes.map((enigme, index) => (
@@ -158,7 +157,18 @@ const App = () => {
         )}
 
         {step === enigmes.length && (
-          <p>Félicitations ! Regarde par la fenêtre de notre chambre.</p>
+          <Card className='w-4/5'>
+            <CardHeader>
+              <CardTitle>Félicitations!</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className='mb-3'>
+                Tu as su répondre à toutes les questions! Regarde par la fenêtre
+                de notre chambre pour découvrir une petite surprise (ou pas).
+              </p>
+            </CardContent>
+            <p className='mb-3 text-center text-3xl'>😘</p>
+          </Card>
         )}
       </div>
     </>
