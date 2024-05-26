@@ -25,7 +25,7 @@ const enigmes: {
   {
     question:
       "Quel est le nom du café où nous nous sommes rencontrés pour la première fois ?",
-    answers: ["L'avenue", "Leffe", "Café Leffe"],
+    answers: ["L'avenue", "Leffe", "Café Leffe","lavenue"],
     indice: "Tu peux te rendre dans la cuisine.",
   },
   {
